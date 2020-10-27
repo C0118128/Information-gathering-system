@@ -7,5 +7,6 @@ import scrapy
 
 
 class ScrapyProjectItem(scrapy.Item):
+    a_url = scrapy.Field()
     name = scrapy.Field()
     url = scrapy.Field()
