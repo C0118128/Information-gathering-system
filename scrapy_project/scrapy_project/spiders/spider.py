@@ -20,7 +20,6 @@ class SpiderSpider(scrapy.Spider):
         except IndexError as e:
             print(e)
         finally:
-            pass
             next_page = response.xpath('//*[@id="jobSearchListNum"]//a[@class="next page next"]/@href').extract_first()
             if next_page is None:
                 print('finish')
@@ -32,6 +31,7 @@ class SpiderSpider(scrapy.Spider):
 
     def detail_parse(self, response):
         yield ScrapyProjectItem(
+            a_url = response.url, 
             name = response.xpath('//*[@id="descCompanyName"]/div[@class="base"]//span[@class="text"]/text()').get(),
             url = response.xpath('//*[@class="previewOption scrollTrigger"]/text()').get()
             )
