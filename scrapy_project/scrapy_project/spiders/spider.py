@@ -9,8 +9,7 @@ class SpiderSpider(scrapy.Spider):
     allowed_domains = ['employment.en-japan.com']
     start_urls = ['http://employment.en-japan.com/search/search_list/?occupation_back=400000&caroute=0701&occupation=401000_401500_402000_402500_403000_403500_404000_404500_405000_405500_409000/']
 
-    def start_self_parse(self, url):
-        yield scrapy.Request(url, self.parse)
+    
     
     def start_requests(self):
         # 初期設定
