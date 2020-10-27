@@ -9,6 +9,9 @@ class SpiderSpider(scrapy.Spider):
     allowed_domains = ['employment.en-japan.com']
     start_urls = ['http://employment.en-japan.com/search/search_list/?occupation_back=400000&caroute=0701&occupation=401000_401500_402000_402500_403000_403500_404000_404500_405000_405500_409000/']
 
+    def start_self_parse(self, url):
+        yield scrapy.Request(url, self.parse)
+    
     def start_requests(self):
         # 初期設定
         en_url = 'https://employment.en-japan.com/'
@@ -18,7 +21,7 @@ class SpiderSpider(scrapy.Spider):
         # 2. 職種リスト
         occupation_list = [
             {'id': '1', 'name': 'sales'},
-            # {'id': '2', 'name': 'planning'},
+            {'id': '2', 'name': 'planning'},
             # {'id': '3', 'name': 'service'},
             # {'id': '4', 'name': 'professional'},
             # {'id': '5', 'name': 'profession'},
@@ -39,11 +42,11 @@ class SpiderSpider(scrapy.Spider):
             driver.find_element_by_xpath(f'//*[@class="searchUnit searchUnitJob"]/ul[@class="categoryList"]/li[{id}]/a[@class="link"]').click() # 業種
             time.sleep(2)
             driver.find_element_by_xpath(f'//*[@id="jobIndexSearchList"]/*[@class="content"]/*[@class="btn"]/button[@class="searchBtn"]').click() # 全て選択
-            time.sleep(2)
+            time.sleep(3)
             current_url = driver.current_url
             yield scrapy.Request(current_url, self.parse)
             time.sleep(2)
-            
+
         driver.quit()
         return
 
@@ -78,5 +81,3 @@ class SpiderSpider(scrapy.Spider):
             name = response.xpath('//*[@id="descCompanyName"]/div[@class="base"]//span[@class="text"]/text()').get(),
             url = response.xpath('//*[@class="previewOption scrollTrigger"]/text()').get()
             )
-        
-
