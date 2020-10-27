@@ -9,12 +9,13 @@ class SpiderSpider(scrapy.Spider):
     def parse(self, response):
         count = 1
         while True :
-            data = response.xpath('//*[@class="jobSearchListLeftArea"]/*[@class="list"]').extract()[count]
+            data = response.xpath('//*[@class="jobSearchListLeftArea"]/*[@class="list"]')[count].get()
             if data is None:
                 break
             else:
                 yield ScrapyProjectItem(
-                        name = response.xpath('//*[@class="jobSearchListLeftArea"]/*[@class="list"]//*[@class="companyName"]/*[@class="company"]/text()').extract()[count],
-                        url = response.urljoin(response.xpath('//*[@class="jobSearchListLeftArea"]/*[@class="list"]//*[@class="jobNameArea"]/*[@class="job _aroute_add_param"]/@href').extract()[count])
+                        a_url = response.urljoin(response.xpath('//*[@class="jobSearchListLeftArea"]/*[@class="list"]//*[@class="jobNameArea"]/*[@class="job _aroute_add_param"]/@href')[count].get()),
+                        name = response.xpath('//*[@class="jobSearchListLeftArea"]/*[@class="list"]//*[@class="companyName"]/*[@class="company"]/text()')[count].get(),
+                        url = None
                     )
                 count += 1
