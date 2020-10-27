@@ -88,3 +88,6 @@ DOWNLOAD_DELAY = 3
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # LOG_FILE = 'index.log'
+FEED_EXPORT_ENCODING='utf-8'
+FEED_FORMAT='csv'
+FEED_URI = './out/export.csv'

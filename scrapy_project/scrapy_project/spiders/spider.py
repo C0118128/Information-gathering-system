@@ -7,9 +7,7 @@ from ..modules.webdriver import Chrome
 class SpiderSpider(scrapy.Spider):
     name = 'spider'
     allowed_domains = ['employment.en-japan.com']
-    start_urls = ['http://employment.en-japan.com/search/search_list/?occupation_back=400000&caroute=0701&occupation=401000_401500_402000_402500_403000_403500_404000_404500_405000_405500_409000/']
-
-    
+    start_urls = ['http://employment.en-japan.com/']
     
     def start_requests(self):
         # 初期設定
@@ -21,15 +19,15 @@ class SpiderSpider(scrapy.Spider):
         occupation_list = [
             {'id': '1', 'name': 'sales'},
             {'id': '2', 'name': 'planning'},
-            # {'id': '3', 'name': 'service'},
-            # {'id': '4', 'name': 'professional'},
-            # {'id': '5', 'name': 'profession'},
-            # {'id': '6', 'name': 'creative'},
-            # {'id': '7', 'name': 'engineers'},
-            # {'id': '8', 'name': 'electrical'},
-            # {'id': '9', 'name': 'building'},
-            # {'id': '10', 'name': 'medical'},
-            # {'id': '11', 'name': 'facility'},
+            {'id': '3', 'name': 'service'},
+            {'id': '4', 'name': 'professional'},
+            {'id': '5', 'name': 'profession'},
+            {'id': '6', 'name': 'creative'},
+            {'id': '7', 'name': 'engineers'},
+            {'id': '8', 'name': 'electrical'},
+            {'id': '9', 'name': 'building'},
+            {'id': '10', 'name': 'medical'},
+            {'id': '11', 'name': 'facility'},
             # {'id': '12', 'name': 'public'},　# 未実装
         ]
 
