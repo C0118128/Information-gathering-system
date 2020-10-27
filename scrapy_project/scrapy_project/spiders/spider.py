@@ -14,15 +14,13 @@ class SpiderSpider(scrapy.Spider):
                 if list is None:
                     break
                 else:
-                    yield ScrapyProjectItem(
-                            a_url = response.urljoin(response.xpath('//*[@class="jobSearchListLeftArea"]/*[@class="list"]//*[@class="jobNameArea"]/*[@class="job _aroute_add_param"]/@href')[count].get()),
-                            name = response.xpath('//*[@class="jobSearchListLeftArea"]/*[@class="list"]//*[@class="companyName"]/*[@class="company"]/text()')[count].get(),
-                            url = None
-                        )
+                    a_url = response.urljoin(response.xpath('//*[@class="jobSearchListLeftArea"]/*[@class="list"]//*[@class="jobNameArea"]/*[@class="job _aroute_add_param"]/@href')[count].get())
+                    yield scrapy.Request(a_url, callback=self.detail_parse)
                     count += 1
         except IndexError as e:
             print(e)
         finally:
+            pass
             next_page = response.xpath('//*[@id="jobSearchListNum"]//a[@class="next page next"]/@href').extract_first()
             if next_page is None:
                 print('finish')
@@ -30,4 +28,12 @@ class SpiderSpider(scrapy.Spider):
             next_page = response.urljoin(next_page)
             print(next_page)
             yield scrapy.Request(next_page, callback=self.parse)
+
+
+    def detail_parse(self, response):
+        yield ScrapyProjectItem(
+            name = response.xpath('//*[@id="descCompanyName"]/div[@class="base"]//span[@class="text"]/text()').get(),
+            url = response.xpath('//*[@class="previewOption scrollTrigger"]/text()').get()
+            )
+        
 
