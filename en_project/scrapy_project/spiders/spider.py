@@ -15,7 +15,7 @@ class SpiderSpider(scrapy.Spider):
         ch = Chrome()
         driver = ch.driver
 
-        # 2. 職種リスト
+        # 職種リスト
         occupation_list = [
             {'id': '1', 'name': 'sales'},
             {'id': '2', 'name': 'planning'},
@@ -31,11 +31,11 @@ class SpiderSpider(scrapy.Spider):
             # {'id': '12', 'name': 'public'},　# 未実装
         ]
 
+        # 検索一覧URL取得・スクレイピング実行
         for occupation in occupation_list:
             driver.get(en_url)
             id = occupation.get('id')
             name = occupation.get('name')
-            # 業種選択
             driver.find_element_by_xpath(f'//*[@class="searchUnit searchUnitJob"]/ul[@class="categoryList"]/li[{id}]/a[@class="link"]').click() # 業種
             time.sleep(2)
             driver.find_element_by_xpath(f'//*[@id="jobIndexSearchList"]/*[@class="content"]/*[@class="btn"]/button[@class="searchBtn"]').click() # 全て選択
@@ -47,6 +47,7 @@ class SpiderSpider(scrapy.Spider):
         driver.quit()
         return
 
+    # 検索一覧の企業情報を各ページ読み取る
     def parse(self, response):
         try:
             count = 1
@@ -59,22 +60,23 @@ class SpiderSpider(scrapy.Spider):
                     yield scrapy.Request(a_url, callback=self.detail_parse)
                     count += 1
         except IndexError as e:
+            # 検索一覧ページの企業情報を全て読み取った
             print(e)
         finally:
-            # print('finish')
-            # return
+            #　次のページへ
             next_page = response.xpath('//*[@id="jobSearchListNum"]//a[@class="next page next"]/@href').extract_first()
             if next_page is None:
+                # 次のページがなければ終了
                 print('finish')
                 return
             next_page = response.urljoin(next_page)
             print(next_page)
             yield scrapy.Request(next_page, callback=self.parse)
 
-
+    # 詳細から各情報を読み取る
     def detail_parse(self, response):
         yield ScrapyProjectItem(
-            a_url = response.url, 
             name = response.xpath('//*[@id="descCompanyName"]/div[@class="base"]//span[@class="text"]/text()').get(),
-            url = response.xpath('//*[@class="previewOption scrollTrigger"]/text()').get()
+            url = response.xpath('//*[@class="previewOption scrollTrigger"]/text()').get(),
+            a_url = response.url,
             )
