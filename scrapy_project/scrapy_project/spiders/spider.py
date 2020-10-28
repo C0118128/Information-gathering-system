@@ -61,8 +61,8 @@ class SpiderSpider(scrapy.Spider):
         except IndexError as e:
             print(e)
         finally:
-            print('finish')
-            return
+            # print('finish')
+            # return
             next_page = response.xpath('//*[@id="jobSearchListNum"]//a[@class="next page next"]/@href').extract_first()
             if next_page is None:
                 print('finish')
