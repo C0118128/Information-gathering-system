@@ -18,16 +18,16 @@ class SpiderSpider(scrapy.Spider):
         # 職種リスト
         occupation_list = [
             {'id': '1', 'name': 'sales'},
-            {'id': '2', 'name': 'planning'},
-            {'id': '3', 'name': 'service'},
-            {'id': '4', 'name': 'professional'},
-            {'id': '5', 'name': 'profession'},
-            {'id': '6', 'name': 'creative'},
-            {'id': '7', 'name': 'engineers'},
-            {'id': '8', 'name': 'electrical'},
-            {'id': '9', 'name': 'building'},
-            {'id': '10', 'name': 'medical'},
-            {'id': '11', 'name': 'facility'},
+            # {'id': '2', 'name': 'planning'},
+            # {'id': '3', 'name': 'service'},
+            # {'id': '4', 'name': 'professional'},
+            # {'id': '5', 'name': 'profession'},
+            # {'id': '6', 'name': 'creative'},
+            # {'id': '7', 'name': 'engineers'},
+            # {'id': '8', 'name': 'electrical'},
+            # {'id': '9', 'name': 'building'},
+            # {'id': '10', 'name': 'medical'},
+            # {'id': '11', 'name': 'facility'},
             # {'id': '12', 'name': 'public'},　# 未実装
         ]
 
@@ -75,8 +75,16 @@ class SpiderSpider(scrapy.Spider):
 
     # 詳細から各情報を読み取る
     def detail_parse(self, response):
+        text = response.xpath('//*[@class="addressUnit"]/..').get()
+        s = text.split('\t\t\t')
+        resolt = s[1].replace('<br>', '/')
         yield ScrapyProjectItem(
-            name = response.xpath('//*[@id="descCompanyName"]/div[@class="base"]//span[@class="text"]/text()').get(),
-            url = response.xpath('//*[@class="previewOption scrollTrigger"]/text()').get(),
-            a_url = response.url,
+            企業情報_1_名前 = response.xpath('//*[@id="descCompanyName"]/div[@class="base"]//span[@class="text"]/text()').get(),
+            企業情報_2_サイト = response.xpath('//*[@class="previewOption scrollTrigger"]/text()').get(),
+            企業情報_3_求人サイト企業情報 = response.url,
+            連絡先_1_住所 = resolt,
+            # xpath結構使えるかも　response.xpath('//*[@class="descArticleArea descSubArticle"][2]/*[@class="descArticleUnit dataCompanyInfoSummary"]').get(),
+            連絡先_2_担当者 = response.xpath('//*[@class="addressUnit"][1]/span[@class="text"]/text()').get(),
+            連絡先_3_電話番号 = response.xpath('//*[@class="addressUnit"][2]/span[@class="text"]/text()').get(),
+            連絡先_4_メールアドレス = response.xpath('//*[@class="addressUnit"][3]/span[@class="text"]/text()').get(),
             )

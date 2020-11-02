@@ -20,7 +20,7 @@ NEWSPIDER_MODULE = 'scrapy_project.spiders'
 ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 48
+CONCURRENT_REQUESTS = 500
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -87,7 +87,7 @@ DOWNLOAD_DELAY = 3
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# LOG_FILE = 'index.log'
+LOG_FILE = 'index.log'
 FEED_EXPORT_ENCODING='utf-8'
 FEED_FORMAT='csv'
 FEED_URI = './out/export.csv'
