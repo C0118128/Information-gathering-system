@@ -1,30 +1,42 @@
 import time
 
-from modules.reader import Csv
+from modules.fileIO import Csv
 from modules.webdriver import Chrome
 
 
-def getTel(target_url, corp_name, corp_location):
-
+def get_list_url(target_url, corp_name, corp_location):
     ch = Chrome()
     with ch.driver as driver:
         driver.get(target_url)
         time.sleep(2)
-        driver.find_element_by_xpath('//*[@id="keyword-suggest"]/input').send_keys(corp_name)
-        driver.find_element_by_xpath('//*[@id="__layout"]/div/main/div[1]/div/div[2]/form/button').click
+        print(corp_name)
+        print(corp_location)
+        #search page with keyword and area
+        driver.find_element_by_id('keyword-suggest').find_element_by_class_name('a-text-input').send_keys(corp_name)
+        driver.find_element_by_id('area-suggest').find_element_by_class_name('a-text-input').send_keys()
+        driver.find_element_by_class_name('m-keyword-form__button').click()
+        time.sleep(2)
         current_url = driver.current_url
-        print(current_url)
+        return current_url
 
 
 
 if __name__ == "__main__":
     target_url = 'https://itp.ne.jp/'
+    input_path = './input.csv'
+    output_path = './output.csv'
+    target_row = [0,1,2]
 
-    csv_reader = Csv()
-    csv_contens = csv_reader.readCsv('./input.csv', [0,2])
+    fileIO = Csv()
+    csv_contens = fileIO.readCsv(input_path, target_row)
     for content in csv_contens:
-        print(content)
         corp_name = content[0]
-        corp_location = content[1]
-        getTel(target_url, corp_name, corp_location)
+        green_url = content[1]
+        corp_location = content[2]
+        list_url = get_list_url(target_url, corp_name, corp_location)
+        content = [corp_name, corp_location, green_url,list_url]
+        fileIO.addCsv(output_path, content)
+        
+        
+        
         
