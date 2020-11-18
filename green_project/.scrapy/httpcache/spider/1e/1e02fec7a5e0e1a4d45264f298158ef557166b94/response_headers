@@ -1,0 +1,11 @@
+Server: nginx
+Date: Tue, 27 Oct 2020 07:49:45 GMT
+Content-Type: text/html; charset=UTF-8
+Set-Cookie: AWSALB=ECBmHofuapN7pbyOYSkE2rZDXP9wB8Vzwc3Pd1R7aQF8nRph1/QlhuMgn02WWaK+chgeTtTUETEKgNsb2QMZ/q7DTK/hIkMHZ//+4/PIOq7ino8g3XE2RNvCiqa8; Expires=Tue, 03 Nov 2020 07:49:44 GMT; Path=/
+Set-Cookie: AWSALBCORS=ECBmHofuapN7pbyOYSkE2rZDXP9wB8Vzwc3Pd1R7aQF8nRph1/QlhuMgn02WWaK+chgeTtTUETEKgNsb2QMZ/q7DTK/hIkMHZ//+4/PIOq7ino8g3XE2RNvCiqa8; Expires=Tue, 03 Nov 2020 07:49:44 GMT; Path=/; SameSite=None; Secure
+Set-Cookie: E13CC=0f01cc7779f216a8725a8ce429419135; expires=Tue, 27-Oct-2020 09:49:44 GMT; Max-Age=7200; path=/
+Set-Cookie: S13URECENTWORKID=1024087%7C1024912%7C1027247%7C1032643%7C1040037%7C1041738%7C1041710%7C1032233; expires=Fri, 23-Oct-2037 07:49:45 GMT; Max-Age=536112000; path=/
+Content-Encoding: gzip
+Vary: Accept-Encoding
+X-Powered-By: PHP/5.6.17
+Strict-Transport-Security: max-age=315360000; includeSubDomains

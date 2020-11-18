@@ -7,6 +7,11 @@ verify_ssl = true
 
 [packages]
 scrapy = "*"
+selenium = "*"
+openpyxl = "*"
+bs4 = "*"
+pandas = "*"
+pysimplegui = "*"
 
 [requires]
 python_version = "3.7"
