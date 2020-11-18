@@ -7,6 +7,6 @@ import scrapy
 
 
 class ScrapyProjectItem(scrapy.Item):
-    name = scrapy.Field()
-    url = scrapy.Field()
-    a_url = scrapy.Field()
+    s1_name = scrapy.Field()
+    s2_a_url = scrapy.Field()
+    s3_location = scrapy.Field()
