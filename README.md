@@ -1,4 +1,4 @@
-# 企業情報取得システム </br> ~ Information-gathering-system ~
+# 求人・企業情報取得システム </br> ~ Information-gathering-system ~
 
 ## 概要
 各就職サイトから応募を出している、企業をスクレイピングする。企業毎に電話番号や住所などの情報を抽出する。
