@@ -29,7 +29,7 @@ class SpiderSpider(scrapy.Spider):
             # {'id': '140', 'name': 'service'},
             # {'id': '150', 'name': 'profession'},
             # {'id': '200', 'name': 'electrical'},
-            {'id': '220', 'name': 'building'},
+            # {'id': '220', 'name': 'building'},
         ]
 
         # 検索一覧URL取得・スクレイピング実行
